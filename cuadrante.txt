@@ -1,0 +1,108 @@
+function [linea,pendiente,cuadrante,cuenta2] = fcn(ancho,vert1,rangos1,p_vert,cuenta,cuenta1,etapa)
+
+if length(vert1)>cuenta
+    vert=vert1(1:cuenta,:);
+else
+    vert=vert1;
+end
+
+if length(rangos1)>cuenta1
+    rangos=rangos1(1:cuenta1,:);
+else
+    rangos=rangos1;
+end
+
+cuadrante=0;
+linea=zeros(120,2);
+cuenta2=0;
+pendiente=0;
+if(etapa==1)
+    [linea1,cuadrante,pendiente]=cuadrantes(rangos,ancho,vert);
+    cuenta2=length(linea1);
+    linea(1:cuenta2,:)=linea1;
+    if(cuadrante==0 && p_vert>20)
+        cuadrante=7;
+    end   
+elseif(etapa==3)
+    if(p_vert>26)
+        cuadrante=8;
+    end
+end
+
+end
+
+function [linea,cuadrante,pendiente]=cuadrantes(rangos,ancho,vert)
+     pendiente=0;
+     cuadrante=0;
+     linea1=0;linea2=[];
+     
+     %se determina cual de las lineas encontradas es la que es de interes
+     %para detectar el cuadrante, ya que se pueden encontrar lineas de los
+     %giros realizados anteriormente que deben ser eliminadas para esto se
+     %eliminan los dos rangos interiores donde linea1=1:rangos(1) y
+     %linea2= rangos(4):final
+     if(rangos)
+        linea1=vert(1:rangos(1),:);
+        if(length(linea1)>2)
+            d_linea1=abs(diff(linea1(:,1)));
+            if(d_linea1(length(d_linea1))> (mean(d_linea1(1:length(d_linea1)-1))+9)) 
+                %si la diferencia promedio es inferior a la distancia entre
+                %el punto de interes significa que se esta encontrando una
+                %linea resultado de los giros anteriores
+                linea1=vert(rangos(1),:);
+            end
+        end
+        linea2=vert(rangos(length(rangos)):length(vert),:);
+        if(length(linea2)>2)
+            d_linea2=abs(diff(linea2(:,1)));
+            if( d_linea2(1) > (mean(d_linea2(2:length(d_linea2)))+9))
+                linea2=vert(rangos(length(rangos)),:);
+            end
+        end
+        
+        %la linea con mayores puntos tiene una inclinación mayor y como se
+        %garantiza que siempre se gira y se queda practicamente recto el
+        %vector de mayor longitud es el que nos interesa. 
+        if(length(linea1)>length(linea2))
+            linea=linea1;
+        else
+            linea=linea2;
+        end
+    else
+        linea=vert;  
+     end
+
+    %desde este punto se procede a encontrar la pendiente y determinar a
+    %cual cuadrante pertenece la linea detectada
+    i=length(linea); 
+    if (length(linea)>3)
+        f=polyfit(linea(1:i,2),120-linea(1:i,1),1);
+        pendiente=f(1);
+        if(pendiente>0)
+            if abs(min(linea(:,2))-65)>abs(max(linea(:,2))-65) 
+            %if min_v<50 && max_h>60
+                cuadrante=3;
+            else
+                cuadrante=1;
+            end
+        else
+            if abs(min(linea(:,2))-95)>abs(max(linea(:,2))-95)
+                cuadrante=4;
+            else
+                cuadrante=2;
+            end
+        end
+    else
+        if(ancho>30)
+            if(max(vert(:,2)))>100
+                cuadrante=5;
+            elseif(min(vert(:,2)))<60
+                cuadrante=6;
+            end
+        else    
+            cuadrante=0;    
+        end
+    end    
+end
+
+

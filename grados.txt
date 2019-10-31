@@ -1,0 +1,48 @@
+function grados = fcn(linea1,pendiente,p_vert,cuadrante,cuenta2,etapa,grado)
+gra=0;
+linea=linea1(1:cuenta2,:);
+if(etapa==1)
+    gra=Egrados(linea,cuadrante,pendiente,p_vert);
+    if(abs(gra)<5)
+        gra=0;
+    end
+end
+grado1=grado+gra;
+if(grado1>180)
+    grado1=grado1-360;
+elseif(grado1<-180)
+    grado1=grado1+360;
+end
+grados=grado1;
+end
+function grad=Egrados(linea,cuadrante,pendiente,p_vert)
+    grad=0;
+    switch(cuadrante)
+        case 1
+            if(max(linea(:,1))>30)
+                grad=90-atand(pendiente);
+            end
+        case 2
+            if(p_vert>30)
+                grad=(180-(90-atand(abs(pendiente))));
+            end
+        case 3
+            if(p_vert>30)
+                grad=-(180-(90-atand(abs(pendiente))));
+            end
+        case 4
+            if(max(linea(:,1))>30)
+                grad=-(90-atand(abs(pendiente)));
+            end
+        case 5
+            if(p_vert>30)
+                grad=90;
+            end
+        case 6  
+            if(p_vert>30)
+                grad=-90;
+            end
+        otherwise
+            grad=0;
+    end
+end

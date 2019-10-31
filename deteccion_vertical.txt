@@ -1,0 +1,84 @@
+function [ancho,vert1,rangos,p_vert,cuenta,cuenta1]= fcn(img)
+    [ancho,vert,rangos1,p_vert,cuenta]=vertical(img);
+    vert1=zeros(240,2);
+    vert1(1:cuenta,:)=vert(1:cuenta,:);
+    rangos=zeros(4,1);
+    cuenta1=length(rangos1);
+    rangos(1:cuenta1)=rangos1;
+end
+
+function[ancho, vert, rangos,p_vert,cuenta]=vertical(imagen)
+    c=size(imagen);
+    table=zeros(240,2);
+    i=1;
+    cuenta=0;
+    
+    %Detecta todos los primeros puntos verticalmente para lo cual se usa j
+    %para las columnas y i para las filas, cada vez que se detecta la
+    %posicion horizontal en la cual se encuentra el primer punto de la fila
+    %se aumenta la fila y asi hasta recorrer cada columna por lo tanto el
+    %for va hasta c(2),..... c(1)=120 C(2)=160
+    for j=1:c(2)
+        while i<=c(1)
+            if imagen(i,j)
+                    cuenta=cuenta+1;
+                    table(cuenta,:)=[i j];
+                    i=c(1)+1;
+            end
+            i=i+1;
+        end
+        i=1;
+    end
+    vert=table(1:cuenta,:);
+        
+    % Encuentra los rangos en lo que esta detectando lineas asumiendo que
+    % no se veras mas de dos lineas por imagen 
+    j=1;suma=0;rangos=zeros(4,1);cuenta=0; 
+    while j<=(length(vert)-1)
+        if vert(j,1)==vert(j+1,1)
+            suma=suma+1;
+        else
+            if(suma>10)
+               cuenta=cuenta+1;
+               rangos(2*cuenta-1)=j-(suma);
+               rangos(2*cuenta)=j;
+               if(cuenta==2)
+                   break;
+               end
+            end     
+            suma=0;
+        end
+        j=j+1;
+    end
+    
+    % A partir de los rangos detectados se encuentra el ancho de la linea y
+    % se determina el punto vertical en que se presenta el inicio de la
+    % linea , es decir toma el valor vertical minimo entre las dos lineas
+    % encontradas
+    
+    if (~rangos) %cuando no se detectaron rangos en el punto anterior
+         if suma>10 % no detecto cambio antes del final de los puntos encontrados por tanto rango es desde el punto final hasta  final-suma
+             rangos=[(j-(suma));(j-(suma));length(vert);length(vert)]; 
+             p_vert=vert(rangos(1),1);
+             rangos=rangos(vert(rangos,1)==p_vert);
+             ancho=-vert(rangos(1),2)+vert(length(vert),2);
+         else
+         rangos=[length(vert);length(vert);length(vert);length(vert)];
+         ancho=0;
+         p_vert=min(vert(:,1));
+         end           
+    else
+        if(cuenta==1)% se detecto un unico rango pero es necesario verificar si al final de los puntos habia otra linea
+            if(suma)% si suma>0 es porque hay un linea al final que debe ser tenida en cuenta 
+                 rangos=[rangos(1:2);(j-(suma));length(vert);];
+            else
+                 rangos=[rangos(1);rangos(1);rangos(2);rangos(2);];
+            end
+        end
+        p_vert=min(vert(rangos,1));
+        rangos=rangos(vert(rangos,1)==p_vert);
+        ancho=-vert(rangos(1),2)+vert(rangos(length(rangos)),2);
+        vert=table;
+    end
+end
+
