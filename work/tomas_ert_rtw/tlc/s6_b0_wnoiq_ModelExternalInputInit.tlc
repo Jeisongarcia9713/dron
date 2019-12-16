@@ -1,0 +1,19 @@
+%implements s6_b0_wnoiq_ModelExternalInputInit "C"
+
+%function ModelExternalInputInit(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+(void)memset(&cmd_inport, 0, sizeof(CommandBus));
+(void)memset(&sensor_inport, 0, sizeof(SensorsBus));
+%closefile cfgTxt
+%<cfgTxt>
+%endfunction
+%function ModelExternalInputInitFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void ModelExternalInputInit(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(1, 29, fcnProtoType)>
+%endfunction

@@ -1,0 +1,29 @@
+CC     = "C:\Program Files\MATLAB\R2019a\sys\lcc64\lcc64\bin\lcc64.exe"
+LD     = "C:\Program Files\MATLAB\R2019a\sys\lcc64\lcc64\bin\lcclnk64.exe"
+LIBCMD = "C:\Program Files\MATLAB\R2019a\sys\lcc64\lcc64\bin\lcclib64.exe"
+CFLAGS = -dll -noregistrylookup  -c -Zp8 -DLCC_WIN64 -DMATLAB_MEX_FILE -nodeclspec 
+LDFLAGS = -s -dll -L"C:\Program Files\MATLAB\R2019a\sys\lcc64\lcc64\lib64" -entry LibMain -map sfun.map 
+LIBFLAGS = 
+
+OBJECTS = \
+	"tomas_sfun.obj"\
+	"c2_tomas.obj"\
+	"tomas_sfun_registry.obj"\
+	"lccstub.obj"\
+	"c_mexapi_version.obj"\
+
+INCLUDE_PATH= -I"C:\Program Files\MATLAB\R2019a\extern\include"  -I"C:\Program Files\MATLAB\R2019a\simulink\include"  -I"C:\Program Files\MATLAB\R2019a\simulink\include\sf_runtime"  -I"C:\Program Files\MATLAB\R2019a\stateflow\c\mex\include"  -I"C:\Program Files\MATLAB\R2019a\rtw\c\src"  -I"F:\dron\work\slprj\_sfprj\tomas\_self\sfun\src"  -I"F:\dron\work"  -I"F:\tomas calibracion"  -I"C:\Program Files\MATLAB\R2019a\sys\lcc64\lcc64\include64" 
+ 
+
+tomas_sfun.mexw64 : $(MAKEFILE) $(OBJECTS)
+	$(LD) $(LDFLAGS) -o tomas_sfun.mexw64 @tomas_sfun.lmko
+tomas_sfun.obj :	"F:\dron\work\slprj\_sfprj\tomas\_self\sfun\src\tomas_sfun.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "F:\dron\work\slprj\_sfprj\tomas\_self\sfun\src\tomas_sfun.c"
+c2_tomas.obj :	"F:\dron\work\slprj\_sfprj\tomas\_self\sfun\src\c2_tomas.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "F:\dron\work\slprj\_sfprj\tomas\_self\sfun\src\c2_tomas.c"
+tomas_sfun_registry.obj :	"F:\dron\work\slprj\_sfprj\tomas\_self\sfun\src\tomas_sfun_registry.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "F:\dron\work\slprj\_sfprj\tomas\_self\sfun\src\tomas_sfun_registry.c"
+lccstub.obj :	"C:\Program Files\MATLAB\R2019a\sys\lcc64\lcc64\mex\lccstub.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "C:\Program Files\MATLAB\R2019a\sys\lcc64\lcc64\mex\lccstub.c"
+c_mexapi_version.obj :	"C:\Program Files\MATLAB\R2019a\extern\version\c_mexapi_version.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "C:\Program Files\MATLAB\R2019a\extern\version\c_mexapi_version.c"

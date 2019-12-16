@@ -1,0 +1,219 @@
+%implements s6_b0_wnoiq_Outputs "C"
+
+%function OutputsForTID(block, system, tid) Output
+%if tid == 0
+%assign ::GlobalCurrentTID = 0
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%assign _modelSS = ""
+
+%<SLibGenerateExtModeOutput(system)>
+%assign   Outputs_open_nze2gu2u453_6_0 = ""
+%openfile Outputs_open_nze2gu2u453_6_0
+
+/* Outputs for Atomic SubSystem: '<Root>/Flight Control System' */
+%closefile Outputs_open_nze2gu2u453_6_0
+
+%assign    Outputs_body_nze2gu2u453_6_0 = ""
+%openfile  Outputs_body_nze2gu2u453_6_0
+
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[2], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("nze2gu2u45",2,0)
+%assign _modelSS = RTMGetModelSSFromIR()
+%endif
+
+%<SLibCGIRGenReusableSysCall("nze2gu2u45", ["%<_modelSS>", "&nddvfly45ww.nze2gu2u453", "&lqi2z1yyyci.nze2gu2u453", "&hoklqri30v.nze2gu2u453"], 2, 0, 7, 0, 7, 6)>\
+
+
+%endif
+%closefile Outputs_body_nze2gu2u453_6_0
+
+%assign    Outputs_close_nze2gu2u453_6_0 = ""
+%openfile  Outputs_close_nze2gu2u453_6_0
+
+/* End of Outputs for SubSystem: '<Root>/Flight Control System' */
+%closefile Outputs_close_nze2gu2u453_6_0
+%<SLibCG_DumpSSCode(Outputs_open_nze2gu2u453_6_0, Outputs_body_nze2gu2u453_6_0, Outputs_close_nze2gu2u453_6_0)>
+
+
+/* SignalConversion: '<Root>/TmpSignal ConversionAtFlight Control SystemOutport1' */
+motors_outport[0] = nddvfly45ww.nze2gu2u453.oxhvy13tx0[0];
+motors_outport[1] = nddvfly45ww.nze2gu2u453.oxhvy13tx0[1];
+motors_outport[2] = nddvfly45ww.nze2gu2u453.oxhvy13tx0[2];
+motors_outport[3] = nddvfly45ww.nze2gu2u453.oxhvy13tx0[3];
+/* SignalConversion: '<Root>/TmpSignal ConversionAtFlight Control SystemOutport2' */
+flag_outport = nddvfly45ww.nze2gu2u453.pvibauom3o;
+%<SLibInsertSolverResetCode()>\
+%closefile cfgTxt
+%<cfgTxt>
+%<LibSetSystemField(system, "CachedOutput0LocalVars", localVarDecl)>
+%assign ::GlobalCurrentTID = []
+%endif
+%if tid == 1
+%assign ::GlobalCurrentTID = 1
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+
+int8_T ii_data;
+static const real_T b[13] = { 0.00050975920363612861, 0.0025659736304223, 0.014594040963812248, 0.049305200293708981, 0.09498179875488523, 0.089159205155936727, 0.0, -0.089159205155936727, -0.09498179875488523, -0.049305200293708981, -0.014594040963812248, -0.0025659736304223, -0.00050975920363612861 };
+static const real_T c[6] = { 0.0020299751839417141, 0.010218281014351701, 0.058116735860084041, 0.19634433732941295, 0.37823877042972093, 0.35505190018248872 };
+const uint8_T *u0;
+boolean_T exitg1;
+%closefile localVarDecl
+/* {S!d25}Outputs for Atomic SubSystem: '<Root>/Image Processing System' */
+/* {S!d30}MATLABSystem: '<S2>/PARROT Image Conversion' incorporates:
+ *  Inport: '<Root>/Image Data'
+ */
+u0 = &imRGB[0];
+MW_Build_RGB(u0, nddvfly45ww.imageBuff_1, nddvfly45ww.imageBuff_2, nddvfly45ww.imageBuff_3);
+for (nddvfly45ww.idx = 0; nddvfly45ww.idx < 19200; nddvfly45ww.idx++) {
+    nddvfly45ww.oxfm0ylomd[nddvfly45ww.idx] = nddvfly45ww.imageBuff_1[nddvfly45ww.idx];
+    nddvfly45ww.pz5ltdkdvs[nddvfly45ww.idx] = nddvfly45ww.imageBuff_2[nddvfly45ww.idx];
+    nddvfly45ww.mcmnbytbyy[nddvfly45ww.idx] = nddvfly45ww.imageBuff_3[nddvfly45ww.idx];
+    /* {S!d28}Logic: '<S2>/AND' incorporates:
+ *  Constant: '<S5>/Constant'
+ *  Constant: '<S6>/Constant'
+ *  Constant: '<S7>/Constant'
+ *  RelationalOperator: '<S5>/Compare'
+ *  RelationalOperator: '<S6>/Compare'
+ *  RelationalOperator: '<S7>/Compare'
+ */
+    nddvfly45ww.i5xflwvvzb[nddvfly45ww.idx] = ((nddvfly45ww.oxfm0ylomd[nddvfly45ww.idx] > hoklqri30v.Thresholdforeachpixel1_const) && (nddvfly45ww.mcmnbytbyy[nddvfly45ww.idx] < hoklqri30v.Thresholdforeachpixel2_const) && (nddvfly45ww.pz5ltdkdvs[nddvfly45ww.idx] < hoklqri30v.Thresholdforeachpixel3_const));
+}
+/* {E!d30}End of MATLABSystem: '<S2>/PARROT Image Conversion' */
+
+/* {S!d32}MATLAB Function: '<S2>/MATLAB Function' */
+/* MATLAB Function 'Image Processing System/MATLAB Function': '<S4>:1' */
+/* '<S4>:1:2' */
+%<(SLibCGCallSubFcn("lmvjx1zbhh", ["nddvfly45ww.i5xflwvvzb", "nddvfly45ww.m"], 1, 28, 4))>;
+/* '<S4>:1:3' */
+for (nddvfly45ww.idx = 0; nddvfly45ww.idx < 19200; nddvfly45ww.idx++) {
+    nddvfly45ww.a[nddvfly45ww.idx] = nddvfly45ww.m[nddvfly45ww.idx];
+}
+memcpy(&nddvfly45ww.derivGaussKernel[0], &b[0], 13U * sizeof(real_T));
+for (nddvfly45ww.idx = 0; nddvfly45ww.idx < 6; nddvfly45ww.idx++) {
+    nddvfly45ww.derivGaussKernel[nddvfly45ww.idx] = c[nddvfly45ww.idx];
+}
+nddvfly45ww.y = nddvfly45ww.derivGaussKernel[7];
+for (nddvfly45ww.idx = 0; nddvfly45ww.idx < 5; nddvfly45ww.idx++) {
+    nddvfly45ww.y += nddvfly45ww.derivGaussKernel[nddvfly45ww.idx + 8];
+}
+nddvfly45ww.y = fabs(nddvfly45ww.y);
+for (nddvfly45ww.idx = 0; nddvfly45ww.idx < 6; nddvfly45ww.idx++) {
+    nddvfly45ww.derivGaussKernel[7 + nddvfly45ww.idx] /= nddvfly45ww.y;
+}
+%<(SLibCGCallSubFcn("i0nfrwn3o3", ["nddvfly45ww.a", "nddvfly45ww.fv4"], 1, 28, 6))>;
+%<(SLibCGCallSubFcn("i0nfrwn3o3b", ["nddvfly45ww.fv4", "nddvfly45ww.derivGaussKernel", "nddvfly45ww.dx"], 1, 28, 1))>;
+%<(SLibCGCallSubFcn("i0nfrwn3o3bh", ["nddvfly45ww.a", "nddvfly45ww.fv4"], 1, 28, 5))>;
+%<(SLibCGCallSubFcn("i0nfrwn3o3bhv", ["nddvfly45ww.fv4", "nddvfly45ww.derivGaussKernel", "nddvfly45ww.dy"], 1, 28, 0))>;
+%<(SLibCGCallSubFcn("hdmr3qyql3", ["nddvfly45ww.dx", "nddvfly45ww.dy", "nddvfly45ww.a"], 1, 28, 3))>;
+if (!rtIsNaNF(nddvfly45ww.a[0])) {
+    nddvfly45ww.idx = 1;
+} else {
+    nddvfly45ww.idx = 0;
+    nddvfly45ww.b_k = 2;
+    exitg1 = false;
+    while ((!exitg1) && (nddvfly45ww.b_k < 19201)) {
+        if (!rtIsNaNF(nddvfly45ww.a[nddvfly45ww.b_k - 1])) {
+            nddvfly45ww.idx = nddvfly45ww.b_k;
+            exitg1 = true;
+        } else {
+            nddvfly45ww.b_k++;
+        }
+    }
+}
+if (nddvfly45ww.idx == 0) {
+    nddvfly45ww.magmax = nddvfly45ww.a[0];
+} else {
+    nddvfly45ww.magmax = nddvfly45ww.a[nddvfly45ww.idx - 1];
+    while (nddvfly45ww.idx + 1 < 19201) {
+        if (nddvfly45ww.magmax < nddvfly45ww.a[nddvfly45ww.idx]) {
+            nddvfly45ww.magmax = nddvfly45ww.a[nddvfly45ww.idx];
+        }
+        nddvfly45ww.idx++;
+    }
+}
+if (nddvfly45ww.magmax > 0.0F) {
+    for (nddvfly45ww.idx = 0; nddvfly45ww.idx < 19200; nddvfly45ww.idx++) {
+        nddvfly45ww.a[nddvfly45ww.idx] /= nddvfly45ww.magmax;
+    }
+}
+memset(&nddvfly45ww.c_y[0], 0, sizeof(real_T) << 6U);
+for (nddvfly45ww.idx = 0; nddvfly45ww.idx < 19200; nddvfly45ww.idx++) {
+    if (rtIsNaNF(nddvfly45ww.a[nddvfly45ww.idx])) {
+        nddvfly45ww.magmax = 0.0F;
+    } else {
+        nddvfly45ww.magmax = nddvfly45ww.a[nddvfly45ww.idx] * 63.0F + 0.5F;
+    }
+    if (nddvfly45ww.magmax > 63.0F) {
+        nddvfly45ww.c_y[63]++;
+    } else if (rtIsInfF(nddvfly45ww.a[nddvfly45ww.idx])) {
+        nddvfly45ww.c_y[63]++;
+    } else {
+        nddvfly45ww.b_k = (int32_T)nddvfly45ww.magmax;
+        nddvfly45ww.c_y[nddvfly45ww.b_k]++;
+    }
+}
+for (nddvfly45ww.idx = 0; nddvfly45ww.idx < 63; nddvfly45ww.idx++) {
+    nddvfly45ww.c_y[nddvfly45ww.idx + 1] += nddvfly45ww.c_y[nddvfly45ww.idx];
+}
+nddvfly45ww.idx = 0;
+nddvfly45ww.ii_size_idx_0 = 1;
+nddvfly45ww.b_k = 0;
+exitg1 = false;
+while ((!exitg1) && (nddvfly45ww.b_k < 64)) {
+    if (nddvfly45ww.c_y[nddvfly45ww.b_k] > 13440.0) {
+        nddvfly45ww.idx = 1;
+        ii_data = (int8_T)(nddvfly45ww.b_k + 1);
+        exitg1 = true;
+    } else {
+        nddvfly45ww.b_k++;
+    }
+}
+if (nddvfly45ww.idx == 0) {
+    nddvfly45ww.ii_size_idx_0 = 0;
+}
+if (0 <= nddvfly45ww.ii_size_idx_0 - 1) {
+    nddvfly45ww.highThreshTemp_data = (real_T)ii_data / 64.0;
+}
+if (nddvfly45ww.ii_size_idx_0 == 0) {
+    nddvfly45ww.highThreshTemp_size = 0;
+} else {
+    nddvfly45ww.highThresh_data = nddvfly45ww.highThreshTemp_data;
+    nddvfly45ww.highThreshTemp_size = 1;
+    nddvfly45ww.highThreshTemp_data *= 0.4;
+}
+%<(SLibCGCallSubFcn("mx45btcvwg", ["nddvfly45ww.dx", "nddvfly45ww.dy", "nddvfly45ww.a", "&nddvfly45ww.highThreshTemp_data", "&nddvfly45ww.highThreshTemp_size", "&nddvfly45ww.highThresh_data", "nddvfly45ww.nkamregrvq"], 1, 28, 2))>;
+/* {E!d32}End of MATLAB Function: '<S2>/MATLAB Function' */
+/* {E!d25}End of Outputs for SubSystem: '<Root>/Image Processing System' */
+%closefile cfgTxt
+%<cfgTxt>
+%<LibSetSystemField(system, "CachedOutput1LocalVars", localVarDecl)>
+%assign ::GlobalCurrentTID = []
+%endif
+%endfunction
+%function OutputsFcnProtoTypeForTID(block, system, tid) Output
+%if tid == 0
+%assign ::GlobalCurrentTID = 0
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Outputs0(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(1, 27, fcnProtoType)>
+%assign ::GlobalCurrentTID = []
+%endif
+%if tid == 1
+%assign ::GlobalCurrentTID = 1
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Outputs1(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(1, 28, fcnProtoType)>
+%assign ::GlobalCurrentTID = []
+%endif
+%endfunction
