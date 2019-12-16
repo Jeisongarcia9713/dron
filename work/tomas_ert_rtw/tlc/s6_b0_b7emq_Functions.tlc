@@ -1,0 +1,118 @@
+%implements s6_b0_b7emq_Functions "C"
+
+%function rt_remd_snf_Fcn0(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+real_T y;
+real_T u1_p;
+if (rtIsNaN(u0) || rtIsNaN(u1) || rtIsInf(u0)) {
+    y = %<LibGetMathConstant(LibRealNonFinite("nan"), FcnGetDataTypeIdFromName("double"))>;
+} else if (rtIsInf(u1)) {
+    y = u0;
+} else {
+    if (u1 < 0.0) {
+        u1_p = ceil(u1);
+    } else {
+        u1_p = floor(u1);
+    }
+    if ((u1 != 0.0) && (u1 != u1_p)) {
+        u1_p = fabs(u0 / u1);
+        if (fabs(u1_p - floor(u1_p + 0.5)) <= DBL_EPSILON * u1_p) {
+            y = 0.0 * u0;
+        } else {
+            y = fmod(u0, u1);
+        }
+    } else {
+        y = fmod(u0, u1);
+    }
+}
+return y;
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+extern real_T rt_remd_snf(\
+%assign comma = ""
+%<comma>real_T u0\
+%assign comma = ", "
+%<comma>real_T u1\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(1, 0, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function jvlp4q5njx_Fcn1(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+real_T indx;
+int32_T k;
+int32_T r;
+int32_T indx_p;
+int32_T pixelsPerImPage_idx_1;
+int8_T subs_idx_1;
+pixelsPerImPage_idx_1 = imSize[0];
+interiorStart[0] = 3.0;
+imSize[0] -= 2;
+interiorStart[1] = 3.0;
+imSize[1] -= 2;
+indx = nhConn[0];
+for (k = 0; k < 24; k++) {
+    indx += (real_T)nhConn[k + 1];
+}
+if (!(indx == 0.0)) {
+    indx = 1.0;
+    for (k = 0; k < 25; k++) {
+        if (nhConn[k]) {
+            r = (int32_T)%<(SLibCGCallSubFcn("rt_remd_snf", ["(1.0 + (real_T)k) - 1.0", "5.0"], 1, 1, 0))> + 1;
+            subs_idx_1 = (int8_T)((int32_T)(((real_T)(k - r) + 1.0) / 5.0) + 1);
+            indx_p = (int32_T)indx;
+            soffsets[indx_p - 1] = (int8_T)r;
+            soffsets[indx_p + 24] = subs_idx_1;
+            indx_p = subs_idx_1 - 1;
+            linds[(int32_T)indx - 1] = indx_p * 5 + (int8_T)r;
+            loffsets[(int32_T)indx - 1] = indx_p * pixelsPerImPage_idx_1 + (int8_T)r;
+            indx++;
+        }
+    }
+    pixelsPerImPage_idx_1 <<= 1;
+    for (indx_p = 0; indx_p < 25; indx_p++) {
+        loffsets[indx_p] -= (int32_T)(3.0 + (real_T)pixelsPerImPage_idx_1);
+    }
+    memcpy(&nddvfly45ww.a[0], &soffsets[0], 50U * sizeof(int32_T));
+    for (k = 0; k < 2; k++) {
+        for (r = 0; r < 25; r++) {
+            indx_p = 25 * k + r;
+            soffsets[indx_p] = nddvfly45ww.a[indx_p] - 3;
+        }
+    }
+}
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void jvlp4q5njx(\
+%assign comma = ""
+%<comma>int32_T imSize[2]\
+%assign comma = ", "
+%<comma>const boolean_T nhConn[25]\
+%assign comma = ", "
+%<comma>int32_T loffsets[25]\
+%assign comma = ", "
+%<comma>int32_T linds[25]\
+%assign comma = ", "
+%<comma>int32_T soffsets[50]\
+%assign comma = ", "
+%<comma>real_T interiorStart[2]\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(1, 1, fcnProtoType)>
+%return fcnBuff
+%endfunction
+

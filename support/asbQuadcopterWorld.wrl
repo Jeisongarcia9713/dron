@@ -68,7 +68,7 @@ DEF OnQuadNoRotation Viewpoint {
 }
 # Copyright 2017-2018 The MathWorks, Inc.
 DEF TrackSection1 Transform {
-  translation 55.3 -0.02 92
+  translation 55.7 -0.02 92
   children Shape {
     appearance Appearance {
       material Material {
@@ -76,13 +76,13 @@ DEF TrackSection1 Transform {
       }
     }
     geometry Box {
-      size 0.7 0.001 0.1
+      size 1.5 0.001 0.1
     }
   }
 }
 # Copyright 2017 The MathWorks, Inc.
 DEF TrackSection2 Transform {
-  translation 56.4 -0.02 93.45
+  translation 56.4 -0.02 92.95
   rotation 0 1 0 0
   children Shape {
     appearance Appearance {
@@ -91,7 +91,7 @@ DEF TrackSection2 Transform {
       }
     }
     geometry Box {
-      size 0.1 0.001 1
+      size 0.1 0.001 2
     }
   }
 }
@@ -180,36 +180,6 @@ DEF TrackSection7 Transform {
     }
     geometry Box {
       size 0.1 0.001 2
-    }
-  }
-}
-# Copyright 2017-2018 The MathWorks, Inc.
-DEF TrackSection1_1 Transform {
-  translation 55.77 -0.02 91.975
-  rotation 0 1 0 0.17453
-  children Shape {
-    appearance Appearance {
-      material Material {
-        diffuseColor 1 0 0
-      }
-    }
-    geometry Box {
-      size 0.3 0.001 0.1
-    }
-  }
-}
-# Copyright 2017-2018 The MathWorks, Inc.
-DEF TrackSection1_0001 Transform {
-  translation 56.17 -0.02 92.42
-  rotation 0 1 0 2.00713
-  children Shape {
-    appearance Appearance {
-      material Material {
-        diffuseColor 1 0 0
-      }
-    }
-    geometry Box {
-      size 1.17 0.001 0.1
     }
   }
 }

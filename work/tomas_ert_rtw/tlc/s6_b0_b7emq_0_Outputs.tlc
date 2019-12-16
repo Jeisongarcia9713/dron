@@ -1,0 +1,101 @@
+%implements s6_b0_b7emq_0_Outputs "C"
+
+%function Outputs(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+
+real_T icen0gcbn1_idx_2;
+real_T icen0gcbn1_idx_3;
+%closefile localVarDecl
+/* {S!d9468}DiscretePulseGenerator: '<S1>/Pulse Generator1' */
+icen0gcbn1_idx_2 = (localDW->mmkpp4qfad < localP->PulseGenerator1_Duty) && (localDW->mmkpp4qfad >= 0) ? localP->PulseGenerator1_Amp : 0.0;
+if (localDW->mmkpp4qfad >= localP->PulseGenerator1_Period - 1.0) {
+    localDW->mmkpp4qfad = 0;
+} else {
+    localDW->mmkpp4qfad++;
+}
+/* {E!d9468}End of DiscretePulseGenerator: '<S1>/Pulse Generator1' */
+
+/* {S!d9470}DiscretePulseGenerator: '<S1>/Pulse Generator2' */
+icen0gcbn1_idx_3 = (localDW->g2nx0cumo3 < localP->PulseGenerator2_Duty) && (localDW->g2nx0cumo3 >= 0) ? localP->PulseGenerator2_Amp : 0.0;
+if (localDW->g2nx0cumo3 >= localP->PulseGenerator2_Period - 1.0) {
+    localDW->g2nx0cumo3 = 0;
+} else {
+    localDW->g2nx0cumo3++;
+}
+/* {E!d9470}End of DiscretePulseGenerator: '<S1>/Pulse Generator2' */
+
+/* {S!d9472}Saturate: '<S1>/Saturation1' incorporates:
+ *  Constant: '<S1>/Constant'
+ */
+if (localP->Constant_Value > localP->Saturation1_UpperSat) {
+    localB->oxhvy13tx0[0] = localP->Saturation1_UpperSat;
+    localB->oxhvy13tx0[1] = localP->Saturation1_UpperSat;
+} else if (localP->Constant_Value < localP->Saturation1_LowerSat) {
+    localB->oxhvy13tx0[0] = localP->Saturation1_LowerSat;
+    localB->oxhvy13tx0[1] = localP->Saturation1_LowerSat;
+} else {
+    localB->oxhvy13tx0[0] = (real32_T)localP->Constant_Value;
+    localB->oxhvy13tx0[1] = (real32_T)localP->Constant_Value;
+}
+if (icen0gcbn1_idx_2 > localP->Saturation1_UpperSat) {
+    localB->oxhvy13tx0[2] = localP->Saturation1_UpperSat;
+} else if (icen0gcbn1_idx_2 < localP->Saturation1_LowerSat) {
+    localB->oxhvy13tx0[2] = localP->Saturation1_LowerSat;
+} else {
+    localB->oxhvy13tx0[2] = (real32_T)icen0gcbn1_idx_2;
+}
+if (icen0gcbn1_idx_3 > localP->Saturation1_UpperSat) {
+    localB->oxhvy13tx0[3] = localP->Saturation1_UpperSat;
+} else if (icen0gcbn1_idx_3 < localP->Saturation1_LowerSat) {
+    localB->oxhvy13tx0[3] = localP->Saturation1_LowerSat;
+} else {
+    localB->oxhvy13tx0[3] = (real32_T)icen0gcbn1_idx_3;
+}
+/* {E!d9472}End of Saturate: '<S1>/Saturation1' */
+
+/* {S!d9474}ManualSwitch: '<S1>/Manual Switch' incorporates:
+ *  Constant: '<S1>/Constant1'
+ *  Constant: '<S1>/Constant2'
+ */
+if (localP->ManualSwitch_CurrentSetting == 1) {
+    localB->pvibauom3o = localP->Constant2_Value;
+} else {
+    localB->pvibauom3o = localP->Constant1_Value;
+}
+/* {E!d9474}End of ManualSwitch: '<S1>/Manual Switch' */
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[0].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Output", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, FcnSysModuleIsRateGrouping(rtmArgSys, "Output"))
+%<SLibCG_AccessArg(0, 1, 0)>
+%endif
+%if SLibCG_ArgAccessed(0, 1, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Output", rtmArgSys.CurrentTID, FcnSysModuleIsRateGrouping(rtmArgSys, "Output"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface)) ||...
+(GenerateClassInterface && SLibIsMultiInstanceServer(rtmArgSys))
+%<SLibCG_UndoAccessArg(0, 1, 0)>
+%endif
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction
+%function OutputsFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void nze2gu2u45(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(0, 1, 0)
+%<comma>%<::tSimStructType> * const %<::tSimStruct>\
+%assign comma = ", "
+%endif
+%<comma>gas3gpvkkn *localB\
+%assign comma = ", "
+%<comma>fgwsrhzls1 *localDW\
+%assign comma = ", "
+%<comma>kggsdwclp2 *localP\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 1, fcnProtoType)>
+%endfunction

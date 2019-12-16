@@ -1,0 +1,76 @@
+%implements "chartSource" "C"
+%function ChartConfig(block, system) void
+  %createrecord chartConfiguration { ...
+          executeAtInitialization  0 ...
+  }
+  %return chartConfiguration
+%endfunction
+%function ChartDataMap(block, system) void
+  %createrecord ChartDataElements {\
+    NumChartData   8 \
+    ChartDataDefaults {\
+      RecordType   "ChartData"\
+      Dimensions   []\
+      IsTestPoint  0\
+    }\
+    ChartData {\
+      Name         "sfEvent"\
+      Description  "ActiveChartEvent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "is_active_c3_flightControlSystem"\
+      Description  "StateIsActive"\
+      SFName       "is_active_c3_flightControlSystem"\
+      Path         "is_active_c3_flightControlSystem"\
+      SrcLocation  ""\
+      IsTestPoint  1\
+    }\
+    ChartData {\
+      Name         "is_c3_flightControlSystem"\
+      Description  "StateActiveChild"\
+      SFName       "is_c3_flightControlSystem"\
+      Path         "is_c3_flightControlSystem"\
+      SrcLocation  ""\
+      IsTestPoint  1\
+    }\
+    ChartData {\
+      Name         "vel"\
+      Description  "ChartLocal"\
+      SFName       ""\
+      Path         "vel"\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "grados"\
+      Description  "ChartLocal"\
+      SFName       ""\
+      Path         "grados"\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "actual"\
+      Description  "ChartLocal"\
+      SFName       ""\
+      Path         "actual"\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "cen"\
+      Description  "ChartLocal"\
+      SFName       ""\
+      Path         "cen"\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "temporalCounter_i1"\
+      Description  "TemporalCounter"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  ""\
+    }\
+  }
+  %return ChartDataElements
+%endfunction

@@ -1,0 +1,95 @@
+%implements s6_b0_b7emq_PublicModuleTypes "C"
+
+%function PublicModuleTypes(block) Output
+
+
+/* Custom Type definition for MATLAB Function: '<S2>/MATLAB Function' */
+#ifndef struct_tag_sPmiUZY2qQ0dLsc3OKaugUE
+#define struct_tag_sPmiUZY2qQ0dLsc3OKaugUE
+struct tag_sPmiUZY2qQ0dLsc3OKaugUE
+{
+    real_T DEFAULT;
+    real_T TOPLEFT;
+    real_T BOTTOMRIGHT;
+};
+#endif /*struct_tag_sPmiUZY2qQ0dLsc3OKaugUE*/
+#ifndef typedef_p4401vitdo
+#define typedef_p4401vitdo
+typedef struct tag_sPmiUZY2qQ0dLsc3OKaugUE p4401vitdo;
+#endif /*typedef_p4401vitdo*/
+#ifndef struct_tag_swEUy0VManMfNlh9fC038aH
+#define struct_tag_swEUy0VManMfNlh9fC038aH
+struct tag_swEUy0VManMfNlh9fC038aH
+{
+    real_T NONE;
+    real_T CONSTANT;
+    real_T REPLICATE;
+    real_T SYMMETRIC;
+};
+#endif /*struct_tag_swEUy0VManMfNlh9fC038aH*/
+#ifndef typedef_fqi3buv14e
+#define typedef_fqi3buv14e
+typedef struct tag_swEUy0VManMfNlh9fC038aH fqi3buv14e;
+#endif /*typedef_fqi3buv14e*/
+#ifndef struct_tag_sho5krkycRf4zNoOFwnsnyC
+#define struct_tag_sho5krkycRf4zNoOFwnsnyC
+struct tag_sho5krkycRf4zNoOFwnsnyC
+{
+    boolean_T YES;
+    boolean_T NO;
+};
+#endif /*struct_tag_sho5krkycRf4zNoOFwnsnyC*/
+#ifndef typedef_c0nbw3wcnm
+#define typedef_c0nbw3wcnm
+typedef struct tag_sho5krkycRf4zNoOFwnsnyC c0nbw3wcnm;
+#endif /*typedef_c0nbw3wcnm*/
+#ifndef struct_tag_skA4KFEZ4HPkJJBOYCrevdH
+#define struct_tag_skA4KFEZ4HPkJJBOYCrevdH
+struct tag_skA4KFEZ4HPkJJBOYCrevdH
+{
+    uint32_T SafeEq;
+    uint32_T Absolute;
+    uint32_T NaNBias;
+    uint32_T NaNWithFinite;
+    uint32_T FiniteWithNaN;
+    uint32_T NaNWithNaN;
+};
+#endif /*struct_tag_skA4KFEZ4HPkJJBOYCrevdH*/
+#ifndef typedef_fr24cntxem
+#define typedef_fr24cntxem
+typedef struct tag_skA4KFEZ4HPkJJBOYCrevdH fr24cntxem;
+#endif /*typedef_fr24cntxem*/
+
+#ifndef typedef_pgwzca2xk5
+#define typedef_pgwzca2xk5
+typedef struct
+{
+    uint32_T f1[8];
+} pgwzca2xk5;
+#endif /*typedef_pgwzca2xk5*/
+
+/* Custom Type definition for MATLAB Function: '<S2>/MATLAB Function' */
+#ifndef struct_tag_sJCxfmxS8gBOONUZjbjUd9E
+#define struct_tag_sJCxfmxS8gBOONUZjbjUd9E
+struct tag_sJCxfmxS8gBOONUZjbjUd9E
+{
+    boolean_T CaseSensitivity;
+    boolean_T StructExpand;
+    char_T PartialMatching[6];
+    boolean_T IgnoreNulls;
+};
+#endif /*struct_tag_sJCxfmxS8gBOONUZjbjUd9E*/
+#ifndef typedef_o3jnehrdki
+#define typedef_o3jnehrdki
+typedef struct tag_sJCxfmxS8gBOONUZjbjUd9E o3jnehrdki;
+#endif /*typedef_o3jnehrdki*/
+
+#ifndef typedef_c42im4gz45
+#define typedef_c42im4gz45
+typedef struct
+{
+    int32_T isInitialized;
+    pgwzca2xk5 inputVarSize;
+} c42im4gz45;
+#endif /*typedef_c42im4gz45*/
+%endfunction

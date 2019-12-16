@@ -78,7 +78,7 @@ takeOffDuration = 1;
 % myvariable = 0;
 
 % Vision Ts
-VTs= 20*Ts;
+VTs= 10*Ts;
 
 % Register variables after the project is loaded and store the variables in
 % initVars so they can be cleared later on the project shutdown.
